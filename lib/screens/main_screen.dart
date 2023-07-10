@@ -56,8 +56,8 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
-          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: "Earnings"),
-          BottomNavigationBarItem(icon: Icon(Icons.start), label: "Rattings"),
+          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: "Thu nhập"),
+          BottomNavigationBarItem(icon: Icon(Icons.start), label: "Xếp hạng"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Cá nhân"),
         ],
         unselectedItemColor: darkTheme ? Colors.black45 : Colors.white54,
