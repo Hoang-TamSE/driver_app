@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:dixe_drivers/global/global.dart';
 import 'package:dixe_drivers/screens/main_screen.dart';
 import 'package:dixe_drivers/screens/motobike_info_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -23,8 +27,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordTextEditingController = TextEditingController();
   final confirmTextEditingController = TextEditingController();
   bool _passwordVisible = false;
+
+  File? _imageAvatar;
+  File? _beforeCCCD;
+  File? _afterCCCD;
+  final imagePicker = ImagePicker();
+
+  String? downloadAvatar;
+  String? downloadBeforeCCCD;
+  String? downloadAfterCCCD;
   //declare a globalKey
   final _formKey = GlobalKey<FormState>();
+  Future imagePickerAvatar() async {
+    final pick = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pick != null) {
+        _imageAvatar = File(pick.path);
+      } else {
+        Fluttertoast.showToast(msg: "Không có tập tin được chọn");
+      }
+    });
+  }
+
+  Future imagePickerBefore() async {
+    final pick = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pick != null) {
+        _beforeCCCD = File(pick.path);
+      } else {
+        Fluttertoast.showToast(msg: "Không có tập tin được chọn");
+      }
+    });
+  }
+
+  Future imagePickerAfter() async {
+    final pick = await imagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pick != null) {
+        _afterCCCD = File(pick.path);
+      } else {
+        Fluttertoast.showToast(msg: "Không có tập tin được chọn");
+      }
+    });
+  }
 
   void _submit() async {
     if (_formKey.currentState!.validate()) {
@@ -34,6 +82,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: passwordTextEditingController.text.trim())
           .then((auth) async {
         currentUser = auth.user;
+        //push avatar
+        Reference refAvatar =
+            FirebaseStorage.instance.ref().child('${currentUser!.uid}/avatar');
+        await refAvatar.putFile(_imageAvatar!);
+        downloadAvatar = await refAvatar.getDownloadURL();
+
+        //push beforeCCCD
+        Reference refBefore = FirebaseStorage.instance
+            .ref()
+            .child('${currentUser!.uid}/beforeCCCD');
+        await refBefore.putFile(_beforeCCCD!);
+        downloadBeforeCCCD = await refBefore.getDownloadURL();
+
+        //push afterCCCD
+        Reference refAfter = FirebaseStorage.instance
+            .ref()
+            .child('${currentUser!.uid}/afterCCCD');
+        await refAfter.putFile(_afterCCCD!);
+        downloadAfterCCCD = await refAfter.getDownloadURL();
 
         if (currentUser != null) {
           Map userMap = {
@@ -42,6 +109,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             "email": emailTextEditingController.text.trim(),
             "address": addressTextEditingController.text.trim(),
             "phone": phoneTextEditingController.text.trim(),
+            "avatar": downloadAvatar,
+            "beforeCCCD": downloadBeforeCCCD,
+            "afterCCCD": downloadAfterCCCD,
           };
           DatabaseReference userRef =
               FirebaseDatabase.instance.ref().child('drivers');
@@ -72,8 +142,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               Column(
                 children: [
-                  Image.asset(
-                      darkTheme ? "images/city_dark.jpg" : "images/city.jpg"),
+                  Container(
+                    child: _imageAvatar == null
+                        ? Image.asset(
+                            darkTheme
+                                ? 'images/city_dark.jpg'
+                                : 'images/city.jpg',
+                            height: 350,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            _imageAvatar!,
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -400,12 +483,113 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 SizedBox(
                                   height: 20,
                                 ),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    imagePickerAvatar();
+                                  },
+                                  icon: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.white,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: darkTheme
+                                          ? Colors.amber.shade400
+                                          : const Color.fromARGB(
+                                              255, 133, 189, 235),
+                                      foregroundColor: darkTheme
+                                          ? Colors.black
+                                          : Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
+                                      minimumSize: Size(50, 30)),
+                                  label: Text('Ảnh chân dung'),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton.icon(
+                                  icon: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.white,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: darkTheme
+                                          ? Colors.amber.shade400
+                                          : const Color.fromARGB(
+                                              255, 133, 189, 235),
+                                      foregroundColor: darkTheme
+                                          ? Colors.black
+                                          : Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
+                                      minimumSize: Size(50, 30)),
+                                  onPressed: () {
+                                    imagePickerBefore();
+                                  },
+                                  label: Text('Ảnh CCCD mặt trước'),
+                                ),
+                                Container(
+                                  child: _beforeCCCD == null
+                                      ? Text('')
+                                      : Image.file(
+                                          _beforeCCCD!,
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.center,
+                                          height: 250,
+                                          width: 400,
+                                        ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton.icon(
+                                  icon: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.white,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: darkTheme
+                                          ? Colors.amber.shade400
+                                          : const Color.fromARGB(
+                                              255, 133, 189, 235),
+                                      foregroundColor: darkTheme
+                                          ? Colors.black
+                                          : Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
+                                      minimumSize: Size(50, 30)),
+                                  onPressed: () {
+                                    imagePickerAfter();
+                                  },
+                                  label: Text('Ảnh CCCD mặt sau'),
+                                ),
+
+                                Container(
+                                  child: _afterCCCD == null
+                                      ? Text('')
+                                      : Image.file(
+                                          _afterCCCD!,
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.center,
+                                          height: 250,
+                                          width: 400,
+                                        ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: darkTheme
+                                        backgroundColor: darkTheme
                                             ? Colors.amber.shade400
                                             : Colors.blue,
-                                        onPrimary: darkTheme
+                                        foregroundColor: darkTheme
                                             ? Colors.black
                                             : Colors.white,
                                         elevation: 0,

@@ -19,6 +19,11 @@ class HomeTabPage extends StatefulWidget {
 }
 
 class _HomeTabPageState extends State<HomeTabPage> {
+  @override
+  void dispose() {
+    // todo: implement dispose
+    super.dispose();
+  }
   GoogleMapController? newGoogleMapController;
   final Completer<GoogleMapController> _controllerGoogleMap = Completer();
 
@@ -79,6 +84,11 @@ class _HomeTabPageState extends State<HomeTabPage> {
           onlineDriverData.phone = (snap.snapshot.value as Map)["phone"];
           onlineDriverData.email = (snap.snapshot.value as Map)["email"];
           onlineDriverData.address = (snap.snapshot.value as Map)["address"];
+          onlineDriverData.avatar = (snap.snapshot.value as Map)["avatar"];
+          onlineDriverData.beforeCCCD = (snap.snapshot.value as Map)["beforeCCCD"];
+          onlineDriverData.afterCCCD = (snap.snapshot.value as Map)["afterCCCD"];
+          onlineDriverData.beforeLicense = (snap.snapshot.value as Map)["beforeLicense"];
+          onlineDriverData.afterLicense = (snap.snapshot.value as Map)["afterLicense"];
           onlineDriverData.motobike_model = (snap.snapshot.value as Map)["motobike_details"]["motobike_model"];
           onlineDriverData.motobike_color = (snap.snapshot.value as Map)["motobike_details"]["motobike_color"];
           onlineDriverData.motobike_number = (snap.snapshot.value as Map)["motobike_details"]["motobike_number"];
