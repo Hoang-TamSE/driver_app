@@ -20,9 +20,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         .sendPasswordResetEmail(email: emailTextEditingController.text.trim())
         .then((value) {
       Fluttertoast.showToast(
-          msg: "We have sent an email to recover password, please check email");
+          msg: "Chúng tôi đã gửi email khôi phục mật khẩu, vui lòng kiểm tra email");
     }).onError((error, stackTrace) {
-      Fluttertoast.showToast(msg: "Error Occured: \n ${error.toString()}");
+      Fluttertoast.showToast(msg: "Có lỗi: \n ${error.toString()}");
     });
   }
 
@@ -46,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     height: 20,
                   ),
                   Text(
-                    "Forgot Password Screen",
+                    "Màn hình quên mật khẩu",
                     style: TextStyle(
                       color: darkTheme ? Colors.amber.shade400 : Colors.blue,
                       fontSize: 25,
@@ -97,13 +97,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Email can\'t be empty';
+                                      return 'Email không được để trống';
                                     }
                                     if (EmailValidator.validate(text) != true) {
-                                      return "Please enter a valid email";
+                                      return "Vui lòng nhập email hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Email can\'t be more than 50";
+                                      return "Email không được nhiều hơn 50";
                                     }
                                   },
                                   onChanged: (text) => setState(() {
@@ -134,7 +134,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       _submit();
                                     },
                                     child: Text(
-                                      'Reset Password',
+                                      'Đặt lại mật khẩu',
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),
@@ -146,7 +146,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Doesn't have an account?",
+                                      "Không có tài khoản?",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -158,7 +158,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                     GestureDetector(
                                       onTap: () {},
                                       child: Text(
-                                        "Register",
+                                        "Đăng ký",
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: darkTheme

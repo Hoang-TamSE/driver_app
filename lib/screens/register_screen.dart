@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
                   Text(
-                    "Register",
+                    "Đăng ký",
                     style: TextStyle(
                       color: darkTheme ? Colors.amber.shade400 : Colors.blue,
                       fontSize: 25,
@@ -184,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     LengthLimitingTextInputFormatter(50)
                                   ],
                                   decoration: InputDecoration(
-                                      hintText: "Name",
+                                      hintText: "Tên",
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -209,13 +209,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Name can\'t be empty';
+                                      return 'Tên không được để trống';
                                     }
                                     if (text.length < 2) {
-                                      return "Please enter a valid name";
+                                      return "Xin vui lòng nhập vào một tên hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Name can\'t be more than 50";
+                                      return "Tên không được nhiều hơn 50";
                                     }
                                   },
                                   onChanged: (text) => setState(() {
@@ -255,13 +255,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Email can\'t be empty';
+                                      return 'Email không được để trống';
                                     }
                                     if (EmailValidator.validate(text) != true) {
-                                      return "Please enter a valid email";
+                                      return "Vui lòng nhập email hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Email can\'t be more than 50";
+                                      return "Email không được nhiều hơn 50";
                                     }
                                   },
                                   onChanged: (text) => setState(() {
@@ -280,7 +280,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         : Colors.grey,
                                   ),
                                   decoration: InputDecoration(
-                                    hintText: "Phone",
+                                    hintText: "Số điện thoại",
                                     hintStyle: const TextStyle(
                                       color: Colors.grey,
                                     ),
@@ -310,7 +310,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     LengthLimitingTextInputFormatter(50)
                                   ],
                                   decoration: InputDecoration(
-                                      hintText: "Address",
+                                      hintText: "Địa chỉ",
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -335,13 +335,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Address can\'t be empty';
+                                      return 'Địa chỉ không được để trống';
                                     }
                                     if (text.length < 2) {
-                                      return "Please enter a valid email";
+                                      return "Vui lòng nhập email hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Address can\'t be more than 50";
+                                      return "Địa chỉ không được nhiều hơn 50";
                                     }
                                   },
                                   onChanged: (text) => setState(() {
@@ -357,7 +357,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     LengthLimitingTextInputFormatter(50)
                                   ],
                                   decoration: InputDecoration(
-                                      hintText: "Password",
+                                      hintText: "Mật khẩu",
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -398,13 +398,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Password can\'t be empty';
+                                      return 'Mật khẩu không được để trống';
                                     }
                                     if (text.length < 6) {
-                                      return "Please enter a valid password";
+                                      return "Vui lòng nhập mật khẩu hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Password can\'t be more than 50";
+                                      return "Mật khẩu không được nhiều hơn 50";
                                     }
                                     return null;
                                   },
@@ -421,7 +421,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     LengthLimitingTextInputFormatter(50)
                                   ],
                                   decoration: InputDecoration(
-                                      hintText: "Confirm Password",
+                                      hintText: "Nhập lại mật khẩu",
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -462,17 +462,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Confirm Password can\'t be empty';
+                                      return 'Xác nhận Mật khẩu không được để trống';
                                     }
                                     if (text !=
                                         passwordTextEditingController.text) {
-                                      return "Password do not match";
+                                      return "Mật khẩu không khớp";
                                     }
                                     if (text.length < 6) {
-                                      return "Please enter a valid password";
+                                      return "Vui lòng nhập mật khẩu hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Password can\'t be more than 50";
+                                      return "Mật khẩu không được nhiều hơn 50";
                                     }
                                     return null;
                                   },
@@ -602,7 +602,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       _submit();
                                     },
                                     child: Text(
-                                      'Register',
+                                      'Đăng ký',
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),
@@ -613,7 +613,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 GestureDetector(
                                   onTap: () {},
                                   child: Text(
-                                    'Forgot Password',
+                                    'Quên mật khẩu',
                                     style: TextStyle(
                                       color: darkTheme
                                           ? Colors.amber.shade400
@@ -628,7 +628,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Have an account?",
+                                      "Có một tài khoản?",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -640,7 +640,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     GestureDetector(
                                       onTap: () {},
                                       child: Text(
-                                        "Sign In",
+                                        "Đăng nhập",
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: darkTheme
