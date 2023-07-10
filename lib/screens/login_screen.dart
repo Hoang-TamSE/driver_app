@@ -37,12 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
           final snap = value.snapshot;
           if (snap.value != null) {
             currentUser = auth.user;
-            await Fluttertoast.showToast(msg: "Successfully Logged in");
+            await Fluttertoast.showToast(msg: "Đăng nhập thành công");
             Navigator.push(
                 context, MaterialPageRoute(builder: (c) => MainScreen()));
           } else {
             await Fluttertoast.showToast(
-                msg: "No record exist with this email");
+                msg: "Không có hồ sơ tồn tại với email này");
             firebaseAuth.signOut();
             Navigator.push(
                 context, MaterialPageRoute(builder: (c) => SplashScreen()));
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Fluttertoast.showToast(msg: "Error occured: \n $errorMessage");
       });
     } else {
-      Fluttertoast.showToast(msg: "Not all field are valid");
+      Fluttertoast.showToast(msg: "Không phải tất cả các trường đều hợp lệ");
     }
   }
 
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   Text(
-                    "Login",
+                    "Đăng nhập",
                     style: TextStyle(
                       color: darkTheme ? Colors.amber.shade400 : Colors.blue,
                       fontSize: 25,
@@ -127,13 +127,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Email can\'t be empty';
+                                      return 'Email không được để trống';
                                     }
                                     if (EmailValidator.validate(text) != true) {
-                                      return "Please enter a valid email";
+                                      return "Vui lòng nhập email hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Email can\'t be more than 50";
+                                      return "Email không được nhiều hơn 50";
                                     }
                                   },
                                   onChanged: (text) => setState(() {
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     LengthLimitingTextInputFormatter(50)
                                   ],
                                   decoration: InputDecoration(
-                                      hintText: "Password",
+                                      hintText: "Mật khẩu",
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -190,13 +190,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   AutovalidateMode.onUserInteraction,
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return 'Password can\'t be empty';
+                                      return 'Mật khẩu không được để trống';
                                     }
                                     if (text.length < 6) {
-                                      return "Please enter a valid password";
+                                      return "Vui lòng nhập mật khẩu hợp lệ";
                                     }
                                     if (text.length > 50) {
-                                      return "Password can\'t be more than 50";
+                                      return "Mật khẩu không được nhiều hơn 50";
                                     }
                                     return null;
                                   },
@@ -225,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _submit();
                                     },
                                     child: Text(
-                                      'Login',
+                                      'Đăng nhập',
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),
@@ -242,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 ForgotPasswordScreen()));
                                   },
                                   child: Text(
-                                    'Forgot Password',
+                                    'Quên mật khẩu',
                                     style: TextStyle(
                                       color: darkTheme
                                           ? Colors.amber.shade400
@@ -257,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Doesn't have an account?",
+                                      "Không có một tài khoản?",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -275,7 +275,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     RegisterScreen()));
                                       },
                                       child: Text(
-                                        "Register",
+                                        "Đăng ký",
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: darkTheme

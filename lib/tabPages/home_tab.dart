@@ -34,7 +34,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   LocationPermission? _locationPermission;
 
-  String statusText = "Now Offline";
+  String statusText = "Đang ngoại tuyến";
   Color buttonColors = Colors.grey;
   bool isDriverActive = false;
 
@@ -156,7 +156,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                     }else{
                       driverIsOfflineNow();
                       setState(() {
-                        statusText = "Now Offline";
+                        statusText = "Đang ngoại tuyến";
                         isDriverActive = false;
                         buttonColors = Colors.grey;
                       });
