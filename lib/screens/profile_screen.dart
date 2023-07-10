@@ -213,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${userModelCurrentInfo!.name!}",
+                    Text("${userModelCurrentInfo?.name}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -238,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${userModelCurrentInfo!.phone!}",
+                    Text("${userModelCurrentInfo?.phone}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -263,7 +263,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${userModelCurrentInfo!.address!}",
+                    Text("${userModelCurrentInfo?.address}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -285,7 +285,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   thickness: 1,
                 ),
 
-                Text("${userModelCurrentInfo!.email!}",
+                Text("${userModelCurrentInfo?.email}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,

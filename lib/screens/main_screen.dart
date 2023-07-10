@@ -1,7 +1,12 @@
-import 'package:dixe_drivers/global/global.dart';
-import 'package:dixe_drivers/splashScreen/splash_screen.dart';
+
+import 'package:dixe_drivers/tabPages/earning_tab.dart';
+import 'package:dixe_drivers/tabPages/profile_tab.dart';
+import 'package:dixe_drivers/tabPages/ratting_tab.dart';
 import 'package:dixe_drivers/tabPages/home_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:dixe_drivers/global/global.dart';
+import 'package:dixe_drivers/splashScreen/splash_screen.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -36,23 +41,24 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: tabController,
-        children: [
+        children:  const [
           HomeTabPage(),
-          // EarningsTabPage(),
-          // RatingsTabPage(),
-          // ProfileTabPage(),
+          EarningTabPage(),
+          RatingsTabPage(),
+          ProfileTabPage(),
         ],
       ),
 
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Hone"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
           BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: "Earnings"),
           BottomNavigationBarItem(icon: Icon(Icons.start), label: "Rattings"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Cá nhân"),
         ],
         unselectedItemColor: darkTheme ? Colors.black45 : Colors.white54,
         selectedItemColor: darkTheme ? Colors.black : Colors.white,
